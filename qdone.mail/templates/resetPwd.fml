@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="renderer" content="webkit">
+	<title>武汉擎动网络科技有限公司－－业务支撑平台</title>
+</head>
+<body>
+	<span style="color:red">${userName}</span>，您好！
+		为您在擎动业务支撑平台重置后的新密码为：<span style="color:red">${password}</span>，请您及时登录平台修改密码。
+		<a href="http://qdbssp.qdone.com.cn">点击登录</a> 
+</body>

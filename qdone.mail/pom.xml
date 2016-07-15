@@ -1,0 +1,194 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.qdone</groupId>
+	<artifactId>mail</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.1</version>
+	<name>qdoneMail</name>
+	<description>擎动发送邮件插件</description>
+	<developers>
+		<developer>
+			<organization>武汉擎动网络科技有限公司</organization>
+			<name>李桥</name>
+			<properties>
+				<descrption>jar包开发者</descrption>
+			</properties>
+		</developer>
+	</developers>
+	<repositories>
+		<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址. -->
+		<repository>
+			<id>nexus</id>
+			<name>Team Nexus Repository</name>
+			<url>http://192.168.110.45:80/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>thirdparty</id>
+			<name>Team thirdparty Repository</name>
+			<url>http://192.168.110.45/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	</repositories>
+	<distributionManagement>
+		<repository>
+			<id>qdoneMpiPartyRepository</id>
+			<url>http://192.168.110.180:8081/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	</distributionManagement>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdk.version>1.7</jdk.version>
+		<spring.version>4.2.0.RELEASE</spring.version>
+
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.1.41</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.13</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+		<!--spring-context-support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.2.0.RELEASE</version>
+		</dependency>
+
+		<!-- Javamail API -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.4</version>
+		</dependency>
+		<!-- freemarker API -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.20</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<!-- jar package name -->
+		<finalName>com.qdone.mail</finalName>
+		<plugins>
+			<!-- complie source -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<encoding>utf8</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- dependence jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>.....MonitorMain</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.4</version>
+				<configuration>
+					<argLine>-Dfile.encoding=UTF-8</argLine>
+				</configuration>
+			</plugin>
+			<!-- resource encoding -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- resource encoding -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- resource encoding -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-dependency-plugin</artifactId> 
+				<version>2.8</version> </plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<outputDirectory>${project.build.directory}/lib</outputDirectory>
+					<excludeTransitive>false</excludeTransitive>
+					<stripVersion>true</stripVersion>
+				</configuration>
+			</plugin>
+
+			<!-- 生成javadoc文档包的插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.2</version>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>
